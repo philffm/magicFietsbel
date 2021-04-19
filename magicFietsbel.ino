@@ -27,9 +27,6 @@ String MESSAGE = "Someone rang the fietsbel woohoo.";
 #include <Ticker.h>
 Ticker ticker;
 
-
-#endif
-
 int LED = LED_BUILTIN;
 
 void tick()
@@ -115,7 +112,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int touchFietsbel = touchRead(T0);
-  if (touchFietsbel<30){
+  if (touchFietsbel<30 && touchFietsbel>0){
     slack();
   }
 
