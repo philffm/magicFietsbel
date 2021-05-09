@@ -93,11 +93,12 @@
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/cores/esp32",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/variants/node32s",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/ESP32/src",
-                "/Users/phil/Documents/Arduino/libraries/WiFiManager",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/WiFi/src",
+                "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/HTTPClient/src",
+                "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/WiFiClientSecure/src",
+                "/Users/phil/Documents/Arduino/libraries/WiFiManager",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/WebServer/src",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/DNSServer/src",
-                "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/WiFiClientSecure/src",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/Ticker/src",
                 "/Users/phil/Library/Arduino15/packages/esp32/hardware/esp32/1.0.6/libraries/FS/src",
                 "/Users/phil/Library/Arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/1.22.0-97-gc752ad5-5.2.0/xtensa-esp32-elf/include/c++/5.2.0",
@@ -352,7 +353,8 @@
                 "__GCC_ATOMIC_SHORT_LOCK_FREE=2",
                 "__UINT_FAST8_TYPE__=unsigned int",
                 "__ATOMIC_ACQ_REL=4",
-                "__ATOMIC_RELEASE=3"
+                "__ATOMIC_RELEASE=3",
+                "USBCON"
             ]
         }
     ]

@@ -1,8 +1,8 @@
 
 #include <dummy.h>
-#include <WiFi.h>
+// #include <WiFi.h>
 
-#include <HTTPClient.h>
+// #include <HTTPClient.h>
 #include <WiFiManager.h>         
 
 WiFiManager wifiManager;
@@ -21,7 +21,6 @@ String MESSAGE = "Someone rang the fietsbel woohoo.";
 // https://hooks.slack.com/services/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
 // LED will blink when in config mode
 
-#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 
 //for LED status
 #include <Ticker.h>
