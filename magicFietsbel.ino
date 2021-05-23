@@ -2,16 +2,29 @@
 #include <dummy.h>
 // #include <WiFi.h>
 
-// #include <HTTPClient.h>
+#include <HTTPClient.h>
 #include <WiFiManager.h>         
 
-WiFiManager wifiManager;
 
 // Everything slack
 #include "slackSecrets.h"
 #include "cyclingPrompts.h"
+//for LED status
+#include <Ticker.h>
+
+// El servo
+#include <ESP32Servo.h>
+
+
+WiFiManager wifiManager;
+Ticker ticker;
+// create four servo objects 
+Servo ringServo;
+
 
 String MESSAGE = "Someone rang the fietsbel woohoo.";
+
+
 
 
 // ESP32 Touch Test
@@ -22,11 +35,19 @@ String MESSAGE = "Someone rang the fietsbel woohoo.";
 // LED will blink when in config mode
 
 
-//for LED status
-#include <Ticker.h>
-Ticker ticker;
+// Published values for SG90 servos; adjust if needed
+int minUs = 1000;
+int maxUs = 2000;
+
+// Recommended pins include 2,4,12-19,21-23,25-27,32-33 
+int ringServoPin = 18;
+
+int servoPos = 0;
+
 
 int LED = LED_BUILTIN;
+
+String currentPrompt;
 
 void tick()
 {
@@ -48,25 +69,55 @@ void slack() {
   HTTPClient http;
   http.begin(SlackHookURL); 
   http.addHeader("Content-Type", "application/json");
-
-//  char* currentPrompt = cyclingPrompts[random(sizeof(cyclingPrompts) - 1)];
-  String currentPrompt = "Test prompt";
-
   int httpCode = http.POST("{'username':'magicFietsbel', 'text':':bike::bell: DING DING - Ga lekker fietsen ! " + currentPrompt + "'}");
-  
-  
+
   if(httpCode > 0) {
     Serial.printf("[HTTP] POST... code: %d\n", httpCode);
   } else {
     Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
   }
 
-  //http.end();
+  http.end();
   Serial.println ("Slack done");
 }
 
+void getPrompt() {
+  // currentPrompt = cyclingPrompts[random(sizeof(cyclingPrompts)/sizeof(char*))];
+  currentPrompt = cyclingPrompts[random(NUMITEMS (cyclingPrompts))];
+  String slackMessage = ":bike::bell: DING DING - Ga lekker fietsen ! " + currentPrompt ;
+  Serial.println(slackMessage);
+
+}
+
+void ringDing(){
+  for (servoPos = 0; servoPos <= 100; servoPos += 1) { // goes from 0 degrees to 180 degrees
+		// in steps of 1 degree
+		ringServo.write(servoPos);    // tell servo to go to position in variable 'pos'
+		delay(1);             // waits 15ms for the servo to reach the position
+	}
+	for (servoPos = 100; servoPos >= 0; servoPos -= 1) { // goes from 180 degrees to 0 degrees
+		ringServo.write(servoPos);    // tell servo to go to position in variable 'pos'
+		delay(1);             // waits 15ms for the servo to reach the position
+	} 
+}
 
 void setup() {
+  
+
+  // Servo
+	// Allow allocation of all timers
+	ESP32PWM::allocateTimer(0);
+	ESP32PWM::allocateTimer(1);
+	ESP32PWM::allocateTimer(2);
+	ESP32PWM::allocateTimer(3);
+	ringServo.setPeriodHertz(50);    // standard 50 hz servo
+	ringServo.attach(ringServoPin, 500, 2400); // attaches the servo on pin 18 to the servo object
+	// using default min/max of 1000us and 2000us
+	// different servos may require different min/max settings
+	// for an accurate 0 to 180 sweep
+
+// WiFi
+
   WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -112,7 +163,12 @@ void loop() {
   // put your main code here, to run repeatedly:
   int touchFietsbel = touchRead(T0);
   if (touchFietsbel<30 && touchFietsbel>0){
-    slack();
+    getPrompt();
+    // slack();
+
+    ringDing();
+
+
   }
 
   Serial.println(touchRead(T0));  // get value using T0

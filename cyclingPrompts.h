@@ -1,4 +1,4 @@
-char *cyclingPrompts[] = 
+String cyclingPrompts[] = 
    {"Talk about the weather", 
     "What's your favorite number", 
     "What’s your story?",
@@ -8,6 +8,11 @@ char *cyclingPrompts[] =
     "Fiets",
     "Do you think there are aliens on other planets?"
     };
+
+
+
+// number of items in an array
+#define NUMITEMS(arg) ((unsigned int) (sizeof (arg) / sizeof (arg [0])))
 
 // The fietsbel scandal
 // If you were alone on an island with only one... 

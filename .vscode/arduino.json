@@ -1,5 +1,7 @@
 {
     "configuration": "PartitionScheme=default,FlashFreq=80,UploadSpeed=115200,DebugLevel=none",
     "board": "esp32:esp32:node32s",
-    "sketch": "magicFietsbel.ino"
+    "sketch": "magicFietsbel.ino",
+    "port": "/dev/cu.usbserial-14240"
+
 }
