@@ -164,7 +164,7 @@ void loop() {
   int touchFietsbel = touchRead(T0);
   if (touchFietsbel<30 && touchFietsbel>0){
     getPrompt();
-    // slack();
+    slack();
 
     ringDing();
 

@@ -5,7 +5,7 @@ String cyclingPrompts[] =
     "What’s the most important thing I should know about you? ",
     "When you were a kid, what did you think your life would look like now?",
     "If you were an animal, what animal would you be? Why?",
-    "Fiets",
+    "Happy turtle day",
     "Do you think there are aliens on other planets?"
     };
 
